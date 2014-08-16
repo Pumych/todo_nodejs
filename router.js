@@ -50,13 +50,12 @@ exports.get = function(request, response){
         switch(pathname){
             case '/':
             case '/home':
-                controllerPath = 'home/controller.js';
-//                require('./home/controller.js').get(request, response);
+                controllerPath = 'home';
                 break;
             default:
-                controllerPath = '404/controller.js';
+                controllerPath = '404';
         }
 
-        require('./' + controllerPath).get(request, response);
+        require('./' + controllerPath + '/controller.js').get(request, response);
     }
 }
