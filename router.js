@@ -34,8 +34,6 @@ exports.get = function(request, response){
     var requestUrl = url.parse(request.url, true);  // Parse requested URL
     var pathname = requestUrl.pathname;             // Get pathname
 
-//    console.log( requestUrl );
-
     /**
      * Route by requested filename extension
      */
@@ -50,12 +48,12 @@ exports.get = function(request, response){
         switch(pathname){
             case '/':
             case '/home':
-                controllerPath = 'home';
+                controllerPath = 'home.js';
                 break;
             default:
-                controllerPath = '404';
+                controllerPath = '404.js';
         }
 
-        require('./' + controllerPath + '/controller.js').get(request, response);
+        require('./controllers/' + controllerPath).get(request, response);
     }
 }
