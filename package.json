@@ -1,0 +1,23 @@
+{
+  "name": "todo_nodejs",
+  "version": "0.0.2",
+  "description": "Online todo list",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.8.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pumych/todo_nodejs.git"
+  },
+  "author": "Vitaly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pumych/todo_nodejs/issues"
+  },
+  "homepage": "https://github.com/Pumych/todo_nodejs"
+}
