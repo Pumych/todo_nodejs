@@ -3,9 +3,6 @@ var layout_home_tpl = swig.compileFile('views/layout-home.html');
 var block_header_tpl = swig.compileFile('views/block-header.html');
 var block_footer_tpl = swig.compileFile('views/block-footer.html');
 
-//var header = block_header_tpl();
-//var footer = block_footer_tpl();
-
 var mainPageOutput = layout_home_tpl({
     HEADER_tpl: block_header_tpl(),
     FOOTER_tpl: block_footer_tpl()
