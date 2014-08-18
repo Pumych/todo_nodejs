@@ -5,7 +5,9 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.8.4",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "nightwatch": "^0.5.11",
+    "nodeunit": "^0.5.11"
   },
   "devDependencies": {},
   "scripts": {
