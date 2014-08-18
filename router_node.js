@@ -1,13 +1,13 @@
 var url = require('url');   // URL resolution and parsing module
 var fs = require('fs');     // File System module
 
+/**
+ * Route by requested filename extension
+ */
 exports.get = function(request, response){
     var requestUrl = url.parse(request.url, true);  // Parse requested URL
     var pathname = requestUrl.pathname;             // Get pathname
 
-    /**
-     * Route by requested filename extension
-     */
     if( /.(css)$/.test( pathname ) ){
         responseDataByRequestType(pathname, 'css', response);
 
@@ -16,6 +16,12 @@ exports.get = function(request, response){
 
     } else if(/.(jpg)$/.test(pathname)){
         responseDataByRequestType(pathname, 'jpg', response);
+
+    } else if(/.(gif)$/.test(pathname)){
+        responseDataByRequestType(pathname, 'gif', response);
+
+    }  else if(/.(png)$/.test(pathname)){
+        responseDataByRequestType(pathname, 'png', response);
 
     } else {
         var controllerPath;
@@ -81,6 +87,8 @@ var Router = function(){
             case 'js': return 'text/javascript';
             // TODO: Add all file types
             case 'jpg': return 'image/jpeg';
+            case 'png': return 'image/png';
+            case 'gif': return 'image/gif';
             default: return 'unknown/unknown';
         }
     }
