@@ -1,6 +1,10 @@
 /**
  * Server - express version
  */
+
+/**
+ * Check those modules: morgan, static-favicon, cookie-parser, debug, path, jade
+ */
 console.log('\n\n\n\n\n\n\n\n\n<<<<<<<<<< ------------------ todo_nodejs START ------------------------ >>>>>>>>>');
 // BASE SETUP
 // ==============================================
@@ -10,6 +14,8 @@ var app     = express();
 var router  = express.Router();
 var port    = process.env.PORT || 8888;
 
+//var mongoose = require('mongoose');
+//mongoose.connect('mongodb://localhost/my_database');
 
 
 // ROUTES
@@ -44,3 +50,4 @@ app.use('/', router);   // app.use('/parent', router); - call all from localhost
 app.listen(port);
 
 console.log( 'Magic happens on port ' + port);
+
