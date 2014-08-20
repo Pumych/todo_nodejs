@@ -10,26 +10,32 @@ var app     = express();
 var router  = express.Router();
 var port    = process.env.PORT || 8888;
 
+
+
 // ROUTES
 // ==============================================
 
+/** Log data about all requests */
 router.use(function(req, res, next){
     console.log( req.method, req.url );
     next();     // continue doing what we were doing and go to the route
 });
 
+/** Route static (public) folder */
+app.use(express.static(__dirname + '/public'));
+
+/** Route home page */
 router.get('/', function(req, res){
-    res.send('Home Page!');
+    require('./controllers/home.js').get(req, res);
 });
 
-router.get('/about', function(req, res){
-    res.send('About!');
+/**This would be the last router, if no page/file found return 404 */
+router.get('*', function(req, res){
+    require('./controllers/404.js').get(req, res);
 });
 
-router.get('/hello/:name', function(req, res){
-    res.send('Hello ' + req.params.name);
-});
 
+/** Add router to the application */
 app.use('/', router);   // app.use('/parent', router); - call all from localhost:8888/parent/*
 
 // START THE SERVER
