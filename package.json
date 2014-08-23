@@ -1,27 +1,38 @@
 {
-  "name": "todo_nodejs",
-  "version": "0.0.2",
-  "description": "Online todo list",
-  "main": "app.js",
-  "dependencies": {
-    "express": "^4.8.4",
-    "swig": "^1.4.2",
-    "nightwatch": "^0.5.11",
-    "nodeunit": "^0.5.11",
-    "mongoose": "^3.8.15"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Pumych/todo_nodejs.git"
-  },
-  "author": "Vitaly",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Pumych/todo_nodejs/issues"
-  },
-  "homepage": "https://github.com/Pumych/todo_nodejs"
+    "name": "todo_nodejs",
+    "version": "0.0.2",
+    "description": "Online todo list",
+    "main": "app.js",
+    "dependencies": {
+        "express": "^4.8.4",
+        "swig": "^1.4.2",
+        "mongoose" : "~3.8.1",
+        "passport" : "~0.1.17",
+        "passport-local" : "~0.1.6",
+        "passport-facebook" : "~1.0.2",
+        "passport-twitter" : "~1.0.2",
+        "passport-google-oauth" : "~0.1.5",
+        "connect-flash" : "~0.1.1",
+        "bcrypt-nodejs" : "latest",
+
+        "morgan": "~1.0.0",
+        "body-parser": "~1.0.0",
+        "cookie-parser": "~1.0.0",
+        "method-override": "~1.0.0",
+        "express-session": "~1.0.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Pumych/todo_nodejs.git"
+    },
+    "author": "Vitaly",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Pumych/todo_nodejs/issues"
+    },
+    "homepage": "https://github.com/Pumych/todo_nodejs"
 }

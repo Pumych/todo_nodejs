@@ -3,3 +3,11 @@
     height: 400px;
     background: url('../images/404.jpg') no-repeat;
 }
+
+form.registration{
+    border:1px solid #444;
+}
+
+form.registration p{
+    display: inline-block;
+}
