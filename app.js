@@ -21,43 +21,28 @@ var bodyParser      = require('body-parser');   // get information from html for
 var session         = require('express-session');
 var router          = express.Router();
 
-var configDB = require('./config/database.js');
+//var configDB = require('./config/database.js');
 
+// CONFIG ==============================================
+//mongoose.connect((configDB.url));
 
-//mongoose.connect('mongodb://localhost/my_database');
+// require('./config/passport')(passport); // pass passport for configuration
 
-/** Нах? */
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// set up express application
+app.use(morgan('dev'));     // log every request to the console
+app.use(cookieParser());    // read cookies (needed for auth)
+app.use(bodyParser());      // get information from html forms
 
-/** Route static (public) folder */
-app.use(express.static(__dirname + '/public'));
-// ROUTES
-// ==============================================
+app.set('view engine', 'swig'); // set up swig for templating
 
-/** Log data about all requests */
-router.use(function(req, res, next){
-    console.log( req.method, req.url);
-    next();     // continue doing what we were doing and go to the route
-});
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
-
-/** Route home page */
-router.get('/', function(req, res){
-    require('./controllers/home.js').get(req, res);
-});
-
-router.post('/login', function(req, res){
-    require('./controllers/login.js').post(req, res);
-});
-
-/**This would be the last router, if no page/file found return 404 */
-router.get('*', function(req, res){
-    require('./controllers/404.js').get(req, res);
-});
-
-/** Add router to the application */
-app.use('/', router);   // app.use('/parent', router); - call all from localhost:8888/parent/*
+// routes ======================================================================
+require('./routes.js')(app, passport, router, express); // load our routes and pass in our app and fully configured passport
 
 // START THE SERVER
 // ==============================================
