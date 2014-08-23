@@ -3,9 +3,8 @@
  *
  * Check those modules: static-favicon, debug, path, jade
  */
-
 console.log('\n\n\n\n\n\n\n\n\n<<<<<<<<<< ------------------ todo_nodejs START ------------------------ >>>>>>>>>');
-
+//http://scotch.io/tutorials/javascript/easy-node-authentication-setup-and-local
 // BASE SETUP ==============================================
 
 var express     = require('express');
@@ -21,7 +20,7 @@ var bodyParser      = require('body-parser');   // get information from html for
 var session         = require('express-session');
 var router          = express.Router();
 
-//var configDB = require('./config/database.js');
+var configDB = require('./config/database.js');
 
 // CONFIG ==============================================
 //mongoose.connect((configDB.url));
@@ -44,8 +43,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // routes ======================================================================
 require('./routes.js')(app, passport, router, express); // load our routes and pass in our app and fully configured passport
 
-// START THE SERVER
-// ==============================================
+// START THE SERVER ==============================================
 
 app.listen(port);
 
