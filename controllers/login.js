@@ -20,12 +20,10 @@ exports.post = function(req, res){
                 UserModel.find({'name': user, 'pass': pass}, function(err, namesPass){
                     if(namesPass.length){   // Username and pass found
                         console.log(user + ':' + pass, ' found in DB');
-//                        res.end('{"name" : "OK", "pass": "OK", "return" : "1"}');
                         res.end('{"type" : "login_response", "msg" : "Authentication passed", "returnID" : "1"}');
                         return 1;
                     } else {    // Error pass
                         console.log('Wrong pass, return 0');
-//                        res.end('{"name" : "OK", "pass": "wrong", "return" : "0"}');
                         res.end('{"type" : "login_response", "msg" : "Wrong username or password", "returnID" : "0"}');
                         return 0;
                     }
@@ -37,12 +35,10 @@ exports.post = function(req, res){
 
                 newUser.save(function(err){
                     if(err) console.log('>>> ', err);
-//                    res.end('{"err" : '+ err +', "msg" : "Error adding new user"}');
-                    res.end('{"type" : "login_response", "msg" : "Error adding new user", "returnID" : "0", "err" : ' + err + '}');
-                    return 0;
+                    res.end('{"type" : "login_response", "msg" : "Error adding new user", "returnID" : "0"}');
+//                    return 0;
                 });
-//                res.end('{"msg":"New user would be added now"}');
-                res.end('{"type" : "login_response", "msg" : "New user added, "returnID" : "1"}');
+                res.end('{"type" : "login_response", "msg" : "New user added", "returnID" : "1"}');
 
                 return 1;
 

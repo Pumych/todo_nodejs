@@ -10,14 +10,15 @@ $(document).ready(function(){
             data: {user: email, pass: pass},
             beforeSend: function(xhr){},
             success: function( data ){
+                console.log('>>> ', data);
                 var res = JSON.parse(data);
-//                console.log('>>> ');
-//
-//                if(!res.returnID){
-//                    $('form.registration .errMeassage').text(res.msg);
-//                } else {
-//                    alert('gotodo');
-//                }
+
+
+                if(res.returnID == "0"){
+                    $('form.registration .errMessage').html(res.msg);
+                } else {
+                    alert('gotodo');
+                }
             }
          });
     });
