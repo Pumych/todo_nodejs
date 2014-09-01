@@ -6,12 +6,12 @@ module.exports = function(app, pasport, router, express){
 
     /** Route home page */
     router.get('/', function(req, res){
-        require('./controllers/index').get(req, res);
+        require('./controllers/index.js').get(req, res);
     });
 
-//    router.post('/login', function(req, res){
-//        require('./controllers/login.js').post(req, res);
-//    });
+    router.post('/login', function(req, res){
+        require('./controllers/login.js').post(req, res);
+    });
 
     /**This would be the last router, if no page/file found return 404 */
     router.get('*', function(req, res){

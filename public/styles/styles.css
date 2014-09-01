@@ -18,9 +18,24 @@ form.registration{
     margin-top: 15%;
 }
 
+form.registration p{
+    margin: 0px;
+}
+
+form.registration input[name="email"]{
+    margin: 10px 0px;
+}
+
 form.registration .login-submit{
     cursor: pointer;
+    margin-bottom: 10px;
 }
+form.registration .errMessage{
+    color: red;
+    display: block;
+    height: 20px;
+}
+
 
 .todo_wrap{
     text-align: center;
