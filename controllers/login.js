@@ -5,11 +5,39 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 var UserSchema = mongoose.Schema({
-    name: String,
-    pass: String
+    name:   String,
+    pass:   String,
+    timeStamp:       String,
+    timeStampExpire: String
 });
 
-exports.post = function(req, res){
+var SessionSchema = mongoose.Schema({
+    sessionID: String,
+    userID: String
+});
+
+exports.isLoggedIn = function(){
+
+    return true;
+};
+
+
+
+function getCookie(){}
+function setCookie(){}
+function createSession(){}
+function isCookieExists(){}
+function isSID_OK(){}
+
+
+
+exports.post = function(req, res, app, express){
+
+
+    if(req.body.pass == ''){
+        res.end('{"type" : "login_response", "msg" : "Empty password", "returnID" : "0"}');
+        return 0;
+    }
 
     var UserModel = mongoose.model('user', UserSchema);
 
@@ -50,27 +78,10 @@ exports.post = function(req, res){
 
 //    res.end('{"type" : "login_response", "msg" : "Response message", "returnID" : "1"}');
 };
-//    res.writeHead(200, {'Content-Type': 'application/json'});
-
-//    if(users.exists(req.body.user, req.body.pass)){
-//
-//    }
 
 
-
-
-/**
- * 1. Check username exists
- * 2. If 1-OK check that pass is OK
- * 3. If 1-NOTOK add new user
- * 4. If 2-OK show todo list
- */
 
 //    db.on('open', function callback (){
-
-
-
-
 
 //        console.log(UserModel.db.host); // localhost
 //        console.log(UserModel.db.port); // 27017
@@ -86,11 +97,6 @@ exports.post = function(req, res){
 //            console.log('>>> docs:', docs);
 //
 //        });
-
-//        var user = new UserModel({'name': req.body.user , 'pass':req.body.pass});
-//
-//        user.save();
-
 
 //
 
@@ -116,7 +122,3 @@ exports.post = function(req, res){
 //        delete req.session.user_id;
 //        res.redirect('/login');
 //    });
-
-
-//    console.log( 'req.body.user>: ' + req.body.user );
-//    console.log( 'req.body.pass>: ' + req.body.pass );

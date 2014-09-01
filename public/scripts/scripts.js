@@ -17,7 +17,7 @@ $(document).ready(function(){
                 if(res.returnID == "0"){
                     $('form.registration .errMessage').html(res.msg);
                 } else {
-                    alert('gotodo');
+                    window.location.replace('todo');
                 }
             }
          });

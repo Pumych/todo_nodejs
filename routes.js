@@ -7,10 +7,18 @@ module.exports = function(app, pasport, router, express){
     /** Route home page */
     router.get('/', function(req, res){
         require('./controllers/index.js').get(req, res);
+        console.log("Cookies: ", req.cookies)
+    });
+
+    router.get('/todo', function(req, res){
+
+            require('./controllers/todo.js').get(req, res);
+
+
     });
 
     router.post('/login', function(req, res){
-        require('./controllers/login.js').post(req, res);
+        require('./controllers/login.js').post(req, res, app, express);
     });
 
     /**This would be the last router, if no page/file found return 404 */
