@@ -61,6 +61,7 @@ form.todo .add-submit{
 }
 
 .todo_list li{
+    padding-top: 20px;
     vertical-align:text-bottom;
     position: relative;
     padding-bottom: 10px;
@@ -69,7 +70,7 @@ form.todo .add-submit{
 .todo_list .buttons{
     position: absolute;
     right: -7px;
-    top: -6px;
+    top: -1px;
     opacity: 0;
 }
 .todo_list li:hover .buttons{
@@ -113,4 +114,5 @@ form.todo .add-submit{
     width: 300px;
     font: 11px/1em arial, sans-serif;
     overflow: hidden;
+    margin-top: -30px;
 }

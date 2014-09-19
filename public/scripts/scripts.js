@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+    // Login form submit
     $('form.registration .login-submit').click(function(e){
         e.preventDefault();
         var email = $('.registration input[name="email"]').val();
@@ -13,7 +15,6 @@ $(document).ready(function(){
                 console.log('>>> ', data);
                 var res = JSON.parse(data);
 
-
                 if(res.returnID == "0"){
                     $('form.registration .errMessage').html(res.msg);
                 } else {
@@ -22,5 +23,7 @@ $(document).ready(function(){
             }
          });
     });
+
+    $('.todo_list textarea').autogrow({onInitialize: true});
 });
 
