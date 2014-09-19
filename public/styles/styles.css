@@ -85,14 +85,14 @@ form.todo .add-submit{
     height: 16px;
     display: inline-block;
     margin-right: 9px;
-    background: url(../public/images/edit_icon.png)#fff no-repeat;
+    background: url(../images/edit_icon.png)#fff no-repeat;
 }
 
 .todo_list .buttons .delete{
     width: 16px;
     height: 16px;
     display: inline-block;
-    background: url(../public/images/close_icon.png)#fff no-repeat;
+    background: url(../images/close_icon.png)#fff no-repeat;
 }
 
 .todo_list .buttons span{

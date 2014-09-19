@@ -11,10 +11,7 @@ module.exports = function(app, pasport, router, express){
     });
 
     router.get('/todo', function(req, res){
-
-            require('./controllers/todo.js').get(req, res);
-
-
+        require('./controllers/todo.js').get(req, res);
     });
 
     router.post('/login', function(req, res){
