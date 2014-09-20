@@ -1,5 +1,6 @@
 var swig    = require('swig');
 var login   = require('./login.js');
+var comments= require('../models/comments.js');
 var todo    = swig.compileFile('views/todo.html');
 
 exports.get = function( req, res ){

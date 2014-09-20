@@ -18,6 +18,10 @@ module.exports = function(app, pasport, router, express){
         require('./controllers/login.js').post(req, res, app, express);
     });
 
+    router.post('/add_todo', function(req, res){
+        require('./controllers/add_todo.js').post(req, res, app, express);
+    });
+
     /**This would be the last router, if no page/file found return 404 */
     router.get('*', function(req, res){
         require('./controllers/404.js').get(req, res);
