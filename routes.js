@@ -26,6 +26,11 @@ module.exports = function(app,  router, express, db){
         require('./controllers/logout.js').post(req, res);
     });
 
+    router.post('/get_todo', function(req, res){
+        require('./controllers/get_todo.js').post(req, res, db);
+    });
+
+
     /**This would be the last router, if no page/file found return 404 */
     router.get('*', function(req, res){
         require('./controllers/404.js').get(req, res);

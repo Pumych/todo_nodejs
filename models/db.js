@@ -13,10 +13,10 @@ var UserSchema = mongoose.Schema({
     timeStampExpire: String
 });
 
-var SessionSchema = mongoose.Schema({
-    sessionID: String,
-    userID: String
-});
+//var SessionSchema = mongoose.Schema({
+//    sessionID: String,
+//    userID: String
+//});
 
 var TodoSchema = mongoose.Schema({
     user:   String,
@@ -42,11 +42,11 @@ exports.updateUser = function(req, res, user, pass){
                     req.session.loggedin = 1;
                     req.session.user = user;
                     res.end('{"type" : "login_response", "msg" : "Authentication passed", "returnID" : "1"}');
-                    return 1;
+//                    return 1;
                 } else {    // Error pass
                     console.log('Wrong pass, return 0');
                     res.end('{"type" : "login_response", "msg" : "Wrong username or password", "returnID" : "0"}');
-                    return 0;
+//                    return 0;
                 }
             });
 
@@ -55,19 +55,18 @@ exports.updateUser = function(req, res, user, pass){
             var newUser = new UserModel({'name': user, 'pass': pass});
 
             newUser.save(function(err){
-                if(err) console.log('>>> ', err);
+                if(err) {
+                    console.log('>>> ', err);
+                    res.end('{"type" : "login_response", "msg" : "Error adding new user", "returnID" : "0"}');
+                }
                 req.session.loggedin = 1;
                 req.session.user = user;
-                res.end('{"type" : "login_response", "msg" : "Error adding new user", "returnID" : "0"}');
-                return 1;
+                console.log( '>>> New user added to DB' );
+                res.end('{"type" : "login_response", "msg" : "New user added to DB", "returnID" : "1"}');
             });
-            res.end('{"type" : "login_response", "msg" : "New user added", "returnID" : "1"}');
-
-            return 0;
-
         }
     });
-}
+};
 
 exports.addTodo = function(req, res){
     var TodoModel = mongoose.model('todo', TodoSchema);
@@ -75,8 +74,21 @@ exports.addTodo = function(req, res){
     var newTodo = new TodoModel({'user': req.session.user, 'text': req.body.text});
 
     newTodo.save(function(err){
-        if(err) console.log('>>> ', err);
-        res.end('{"type" : "add_todo_response", "msg" : "Error adding new todo", "returnID" : "0"}');
-//                    return 0;
+        if(err) {
+            console.log('>>> ', err);
+            res.end('{"type" : "add_todo_response", "msg" : "Error adding todo", "returnID" : "0"}');
+        }
+        res.end('{"type" : "add_todo_response", "msg" : "Todo added", "returnID" : "1"}');
     });
-}
+};
+
+exports.getTodo = function(req, res){
+    var TodoModel = mongoose.model('todo', TodoSchema);
+
+    TodoModel.find({'user': req.session.user}, function(err, todos){
+        if(err) console.log('>>> ', err);
+        console.log( typeof todos );
+        console.log( todos );
+        res.end(todos);
+    });
+};
