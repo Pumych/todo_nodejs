@@ -6,7 +6,10 @@ exports.post = function(req, res, db){
         return 0;
     }
 
-    db.addTodo(req, res);
+    if(req.session.loggedin && req.session.user){
+        db.addTodo(req, res);
 
-    res.end('{"type" : "add_todo_response", "msg" : "New todo added", "returnID" : "1"}');
+        res.end('{"type" : "add_todo_response", "msg" : "New todo added", "returnID" : "1"}');
+    }
+    res.end('{"type" : "add_todo_response", "msg" : "Something wrong", "returnID" : "0", "req.session.loggedin" : "' + req.session.loggedin + '", "req.session.user" : "' + req.session.user + '"}');
 };

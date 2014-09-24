@@ -36,11 +36,11 @@ exports.updateUser = function(req, res, user, pass){
 
     UserModel.find({'name': user}, function(err, names){
         if(names.length){   // Username found
-            console.log(user, ' name found in DB');
             UserModel.find({'name': user, 'pass': pass}, function(err, namesPass){
                 if(namesPass.length){   // Username and pass found
                     console.log(user + ':' + pass, ' found in DB');
                     req.session.loggedin = 1;
+                    req.session.user = user;
                     res.end('{"type" : "login_response", "msg" : "Authentication passed", "returnID" : "1"}');
                     return 1;
                 } else {    // Error pass
@@ -57,12 +57,13 @@ exports.updateUser = function(req, res, user, pass){
             newUser.save(function(err){
                 if(err) console.log('>>> ', err);
                 req.session.loggedin = 1;
+                req.session.user = user;
                 res.end('{"type" : "login_response", "msg" : "Error adding new user", "returnID" : "0"}');
-//                    return 0;
+                return 1;
             });
             res.end('{"type" : "login_response", "msg" : "New user added", "returnID" : "1"}');
 
-            return 1;
+            return 0;
 
         }
     });
@@ -71,7 +72,7 @@ exports.updateUser = function(req, res, user, pass){
 exports.addTodo = function(req, res){
     var TodoModel = mongoose.model('todo', TodoSchema);
 
-    var newTodo = new TodoModel({'user': 'tester_nax', 'text': req.body.text});
+    var newTodo = new TodoModel({'user': req.session.user, 'text': req.body.text});
 
     newTodo.save(function(err){
         if(err) console.log('>>> ', err);
