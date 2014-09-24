@@ -1,4 +1,4 @@
-module.exports = function(app, pasport, router, express){
+module.exports = function(app,  router, express, db){
 
     /** Route static (public) folder */
     app.use(express.static(__dirname + '/public'));
@@ -6,8 +6,8 @@ module.exports = function(app, pasport, router, express){
 
     /** Route home page */
     router.get('/', function(req, res){
+        console.log( 'req.session: ', req.session );
         require('./controllers/index.js').get(req, res);
-        console.log("Cookies: ", req.cookies)
     });
 
     router.get('/todo', function(req, res){
@@ -15,11 +15,15 @@ module.exports = function(app, pasport, router, express){
     });
 
     router.post('/login', function(req, res){
-        require('./controllers/login.js').post(req, res, app, express);
+        require('./controllers/login.js').post(req, res, app, express, db);
     });
 
     router.post('/add_todo', function(req, res){
-        require('./controllers/add_todo.js').post(req, res, app, express);
+        require('./controllers/add_todo.js').post(req, res, db);
+    });
+
+    router.post('/logout', function(req, res){
+        require('./controllers/logout.js').post(req, res);
     });
 
     /**This would be the last router, if no page/file found return 404 */
