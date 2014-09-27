@@ -1,8 +1,25 @@
 $(document).ready(function(){
 
     if($('.todo_wrap').length > 0){
-        updateTodo();
+        getTodo();
     }
+
+    $( document ).on( "click", ".todo_wrap .todo_list .delete", function() {
+        var dataId = $(this).parent().parent().attr('data-id');
+        removeTodo(dataId)
+    });
+
+    // Updates to-do on blur
+    $( document ).on("blur", '.todo_list textarea',function(){
+        var dataId = $(this).parent().parent().attr('data-id');
+
+        if($(this).val().length == 0){
+            removeTodo(dataId)
+        } else {
+            updateTodo(dataId, $(this).val());
+        }
+    });
+
 
     // Login form submit
     $('form.registration .login-submit').click(function(e){
@@ -48,11 +65,12 @@ $(document).ready(function(){
             success: function( data ){
                 var res = JSON.parse(data);
                 $('form.todo textarea').val('');
-                updateTodo();
+                getTodo();
             }
         });
     });
 
+    // Logout
     $('.todo_wrap .logout').click(function(e){
         e.preventDefault();
 
@@ -72,7 +90,7 @@ $(document).ready(function(){
 });
 
 // Gets list of to-do from DB and updates the page view
-function updateTodo(){
+function getTodo(){
     $.ajax({
         url: '/get_todo',
         type: "POST",
@@ -89,27 +107,40 @@ function updateTodo(){
                 $('body .todo_wrap').append('<ol class="todo_list"></ol>');
             }
             $('body .todo_wrap .todo_list').html(todoHtml);
-            bindRemoveTodo();
         }
     });
 }
 
-function bindRemoveTodo(){
-    console.log( 'bindRemoveTodo() init' );
-    // Removes to-do from DB and updates the page
-    $('.todo_wrap .todo_list .delete').click(function(){
-        var dataId = $(this).parent().parent().attr('data-id');
-        $.ajax({
-            url: '/remove_todo',
-            type: 'POST',
-            data: { todo_id: dataId },
-            success: function( data ){
+// Removes to-do from DB and from page
+function removeTodo(dataId){
+    $.ajax({
+        url: '/remove_todo',
+        type: 'POST',
+        data: { todo_id: dataId },
+        success: function( data ){
 
-                var res = JSON.parse(data);
-                console.log( res );
-                if(res.returnID == "1")
-                    $('li[data-id="'+dataId+'"]').remove();
+            var res = JSON.parse(data);
+            console.log( res );
+            if(res.returnID == "1"){
+                $('li[data-id="'+dataId+'"]').remove();
+                getTodo();
             }
-        });
+        }
+    });
+}
+
+// Updates the content of to-do
+function updateTodo(dataId, dataTodo){
+    $.ajax({
+        url: '/update_todo',
+        type: 'POST',
+        data: { todo_id: dataId, new_todo: dataTodo },
+        success: function( data ){
+            var res = JSON.parse(data);
+            console.log( res );
+            if(res.returnID == "1"){
+                getTodo();
+            }
+        }
     });
 }
