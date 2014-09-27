@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     if($('.todo_wrap').length > 0){
-        getTodo();
+        updateTodo();
     }
 
     // Login form submit
@@ -49,6 +49,7 @@ $(document).ready(function(){
                 console.log('>>> ', data);
                 var res = JSON.parse(data);
                 $('form.todo textarea').val('');
+                updateTodo();
             }
         });
     });
@@ -71,16 +72,26 @@ $(document).ready(function(){
     });
 });
 
-function getTodo(){
+function updateTodo(){
     $.ajax({
         url: '/get_todo',
         type: "POST",
         success: function( data ){
             console.log('>>> ', data);
             var res = JSON.parse(data);
+            console.log( res.todos );
+            var todoHtml = '';
+            for(var todo in res.todos){
+                todoHtml += '<li data-id="'+todo+'">';
+                todoHtml += '<span class="buttons"><span class="delete"></span></span>';
+                todoHtml += '<div class="text_wrap"><textarea class="text">'+res.todos[todo].text+'</textarea></div></li>';
+                console.log( 'Todo: ', res.todos[todo] );
+            }
 
-            console.log( '>>> get_todo res: ', res );
-            return res;
+            if($('body .todo_wrap .todo_list').length == 0){
+                $('body .todo_wrap').append('<ol class="todo_list"></ol>');
+            }
+            $('body .todo_wrap .todo_list').html(todoHtml);
         }
     });
 }

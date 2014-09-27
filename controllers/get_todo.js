@@ -1,3 +1,4 @@
+//var util = require('util');
 
 exports.post = function(req, res, db, user){
 
@@ -7,9 +8,5 @@ exports.post = function(req, res, db, user){
 
     if(req.session.loggedin && req.session.user){
         db.getTodo(req, res);
-
-
-        res.end('{}');
     }
-
 };

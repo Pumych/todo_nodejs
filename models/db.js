@@ -23,6 +23,7 @@ var TodoSchema = mongoose.Schema({
     text:   String
 });
 
+var TodoModel = mongoose.model('todo', TodoSchema);
 
 /**
  *
@@ -69,13 +70,13 @@ exports.updateUser = function(req, res, user, pass){
 };
 
 exports.addTodo = function(req, res){
-    var TodoModel = mongoose.model('todo', TodoSchema);
+
 
     var newTodo = new TodoModel({'user': req.session.user, 'text': req.body.text});
 
     newTodo.save(function(err){
         if(err) {
-            console.log('>>> ', err);
+            console.log('>>> newTodo.save err: ', err);
             res.end('{"type" : "add_todo_response", "msg" : "Error adding todo", "returnID" : "0"}');
         }
         res.end('{"type" : "add_todo_response", "msg" : "Todo added", "returnID" : "1"}');
@@ -83,12 +84,12 @@ exports.addTodo = function(req, res){
 };
 
 exports.getTodo = function(req, res){
-    var TodoModel = mongoose.model('todo', TodoSchema);
+//    var TodoModel = mongoose.model('todo', TodoSchema);
 
     TodoModel.find({'user': req.session.user}, function(err, todos){
         if(err) console.log('>>> ', err);
-        console.log( typeof todos );
-        console.log( todos );
-        res.end(todos);
+//        console.log( 'in DB.js getTodo: ', todos );
+        todos = JSON.stringify(todos);
+        res.end('{"log" : "get_todo.js response", "todos": '+todos+'}');
     });
 };
