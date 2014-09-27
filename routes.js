@@ -30,6 +30,10 @@ module.exports = function(app,  router, express, db){
         require('./controllers/get_todo.js').post(req, res, db);
     });
 
+    router.post('/remove_todo', function(req, res){
+        require('./controllers/remove_todo.js').post(req, res, db);
+    });
+
 
     /**This would be the last router, if no page/file found return 404 */
     router.get('*', function(req, res){

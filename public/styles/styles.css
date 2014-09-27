@@ -70,14 +70,16 @@ form.todo .add-submit{
 .todo_list .buttons{
     position: absolute;
     right: -7px;
-    top: -1px;
-    opacity: 0;
+    top: 6px;
+    /*opacity: 0;*/
+    z-index: 999;
+    display: block;
 }
 .todo_list li:hover .buttons{
-    opacity: 1;
+    /*opacity: 1;*/
 }
 .todo_list li:hover .text{
-    border: 1px solid #A9A9A9;
+    /*border: 1px solid #A9A9A9;*/
 }
 
 
@@ -114,5 +116,6 @@ form.todo .add-submit{
     width: 300px;
     font: 11px/1em arial, sans-serif;
     overflow: hidden;
-    margin-top: -30px;
+    margin-top: -23px;
+    border: 1px solid #eeeeee;
 }

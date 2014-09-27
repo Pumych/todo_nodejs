@@ -84,12 +84,24 @@ exports.addTodo = function(req, res){
 };
 
 exports.getTodo = function(req, res){
-//    var TodoModel = mongoose.model('todo', TodoSchema);
-
     TodoModel.find({'user': req.session.user}, function(err, todos){
         if(err) console.log('>>> ', err);
-//        console.log( 'in DB.js getTodo: ', todos );
         todos = JSON.stringify(todos);
         res.end('{"log" : "get_todo.js response", "todos": '+todos+'}');
+    });
+};
+
+exports.removeTodo = function(req, res){
+    console.log( 'req.body.todo_id: ', req.body.todo_id );
+
+    TodoModel.find({ _id: req.body.todo_id }).remove(function(err){
+        console.log( 'in remove' );
+        if(err) {
+            console.log('db.js::removeTodo() error: ', err);
+            res.end('{"log" : "db.js::removeTodo() error", "err": '+err+'}');
+            res.end('{"type" : "remove_todo_response", "err" : "'+err+'", "returnID" : "0"}');
+        } else {
+            res.end('{"type" : "remove_todo_response", "msg" : "Todo removed", "returnID" : "1"}');
+        }
     });
 };

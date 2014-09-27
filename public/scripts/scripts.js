@@ -46,7 +46,6 @@ $(document).ready(function(){
             data: {text: text},
             beforeSend: function(xhr){},
             success: function( data ){
-                console.log('>>> ', data);
                 var res = JSON.parse(data);
                 $('form.todo textarea').val('');
                 updateTodo();
@@ -72,26 +71,45 @@ $(document).ready(function(){
     });
 });
 
+// Gets list of to-do from DB and updates the page view
 function updateTodo(){
     $.ajax({
         url: '/get_todo',
         type: "POST",
         success: function( data ){
-            console.log('>>> ', data);
             var res = JSON.parse(data);
-            console.log( res.todos );
             var todoHtml = '';
             for(var todo in res.todos){
-                todoHtml += '<li data-id="'+todo+'">';
+                todoHtml += '<li data-id="'+res.todos[todo]._id+'">';
                 todoHtml += '<span class="buttons"><span class="delete"></span></span>';
                 todoHtml += '<div class="text_wrap"><textarea class="text">'+res.todos[todo].text+'</textarea></div></li>';
-                console.log( 'Todo: ', res.todos[todo] );
             }
 
             if($('body .todo_wrap .todo_list').length == 0){
                 $('body .todo_wrap').append('<ol class="todo_list"></ol>');
             }
             $('body .todo_wrap .todo_list').html(todoHtml);
+            bindRemoveTodo();
         }
+    });
+}
+
+function bindRemoveTodo(){
+    console.log( 'bindRemoveTodo() init' );
+    // Removes to-do from DB and updates the page
+    $('.todo_wrap .todo_list .delete').click(function(){
+        var dataId = $(this).parent().parent().attr('data-id');
+        $.ajax({
+            url: '/remove_todo',
+            type: 'POST',
+            data: { todo_id: dataId },
+            success: function( data ){
+
+                var res = JSON.parse(data);
+                console.log( res );
+                if(res.returnID == "1")
+                    $('li[data-id="'+dataId+'"]').remove();
+            }
+        });
     });
 }
