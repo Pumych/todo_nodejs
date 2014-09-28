@@ -134,7 +134,7 @@ function updateTodo(dataId, dataTodo){
     $.ajax({
         url: '/update_todo',
         type: 'POST',
-        data: { todo_id: dataId, new_todo: dataTodo },
+        data: { todo_id: dataId, text: dataTodo },
         success: function( data ){
             var res = JSON.parse(data);
             console.log( res );

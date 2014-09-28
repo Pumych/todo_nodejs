@@ -19,6 +19,7 @@ var UserSchema = mongoose.Schema({
 //});
 
 var TodoSchema = mongoose.Schema({
+    id:     String,
     user:   String,
     text:   String
 });
@@ -105,3 +106,12 @@ exports.removeTodo = function(req, res){
         }
     });
 };
+
+exports.updateTodo = function(req, res){
+    TodoModel.findOneAndUpdate({'_id': req.body.todo_id}, {'text': req.body.text}, function(err, numberAffected, raw){
+        console.log('>>> err:', err);
+        console.log('>>> numberAffected:', numberAffected);
+        console.log('>>> raw:', raw);
+        res.end('{"type" : "update_todo_response", "msg" : "", "returnID" : ""}');
+    });
+}
