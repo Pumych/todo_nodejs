@@ -44,6 +44,11 @@ form.registration .errMessage{
     text-align: center;
     margin-top: 5%;
 }
+
+.todo_wrap .logout{
+    cursor: pointer;
+}
+
 form.todo{
     display: block;
 }
@@ -122,3 +127,4 @@ form.todo .add-submit{
     margin-top: -23px;
     border: 1px solid #eeeeee;
 }
+

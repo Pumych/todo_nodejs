@@ -1,9 +1,25 @@
+/**
+ * router.js
+ *
+ * Routes all incoming requests
+ */
+
+var login   = require('./controllers/login.js');
+
 module.exports = function(app,  router, express, db){
 
-    /** Route home page */
+    /**
+     * Route home page
+     */
     router.get('/', function(req, res){
-        console.log( 'req.session: ', req.session );
-        require('./controllers/index.js').get(req, res);
+        if(login.isLoggedIn(req, res)){
+            res.redirect('/todo');
+        } else {
+            res.render('registration.html', {
+//                css_path: "/styles/styles.css",
+                title: "Home page"
+            });
+        }
     });
 
     router.get('/todo', function(req, res){
@@ -47,14 +63,4 @@ module.exports = function(app,  router, express, db){
     app.use('/', router);   // app.use('/parent', router); - call all from localhost:8888/parent/*
 }
 
-//// route middleware to make sure a user is logged in
-//function isLoggedIn(req, res, next) {
-//
-//    // if user is authenticated in the session, carry on
-//    if (req.isAuthenticated())
-//        return next();
-//
-//    // if they aren't redirect them to the home page
-//    res.redirect('/');
-//}
 
