@@ -35,32 +35,39 @@ module.exports = function(app,  router, express, db){
     /****************************** AJAX front-end Requests **********/
     // Login
     router.post('/login', function(req, res){
-        if(req.body.pass == ''){ res.end('{"type" : "login_response", "msg" : "Empty password", "returnID" : "0"}'); }
         db.updateUser(req, res, req.body.user, req.body.pass);
     });
 
     // Logout
     router.post('/logout', function(req, res){
-        require('./controllers/logout.js').post(req, res);
+        delete req.session.loggedin;
+        res.end('{"type" : "logout_response", "msg" : "Logged out", "returnID" : "1"}');
     });
 
+    // PREVENTS data access if NOT logged in
+    router.post('*', function(req, res, next){
+        if(!f.isLoggedIn(req, res)){ res.redirect('/'); }
+        next();
+    });
 
-
-
+    // Add new to-do to DB
     router.post('/add_todo', function(req, res){
-        require('./controllers/add_todo.js').post(req, res, db);
+        db.addTodo(req, res);
     });
 
+    // Returns JSON with list of todos from DB
     router.post('/get_todo', function(req, res){
-        require('./controllers/get_todo.js').post(req, res, db);
+        db.getTodo(req, res);
     });
 
+    // Remove to-do from DB
     router.post('/remove_todo', function(req, res){
-        require('./controllers/remove_todo.js').post(req, res, db);
+        db.removeTodo(req, res);
     });
 
+    // Update text of to-do in DB
     router.post('/update_todo', function(req, res){
-        require('./controllers/update_todo.js').post(req, res, db);
+        db.updateTodo(req, res);
     });
 
     /**This would be the last router, if no page/file found return 404 */

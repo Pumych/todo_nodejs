@@ -34,6 +34,8 @@ var TodoModel = mongoose.model('todo', TodoSchema);
  * @param pass
  */
 exports.updateUser = function(req, res, user, pass){
+    if(req.body.pass == ''){ res.end('{"type" : "login_response", "msg" : "Empty password", "returnID" : "0"}'); }
+
     var UserModel = mongoose.model('user', UserSchema);
 
     UserModel.find({'name': user}, function(err, names){
@@ -72,6 +74,7 @@ exports.updateUser = function(req, res, user, pass){
 
 exports.addTodo = function(req, res){
 
+    if(req.body.text == ''){ res.end('{"type" : "add_todo_response", "msg" : "Empty text", "returnID" : "0"}'); }
 
     var newTodo = new TodoModel({'user': req.session.user, 'text': req.body.text});
 
