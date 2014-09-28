@@ -4,38 +4,51 @@
  * Routes all incoming requests
  */
 
-var login   = require('./controllers/login.js');
+var f = require('./libs/help_functions.js');
 
 module.exports = function(app,  router, express, db){
 
-    /**
-     * Route home page
-     */
+    /****************************** Page Requests ***************************/
+    // Home page (registration/login form)
     router.get('/', function(req, res){
-        if(login.isLoggedIn(req, res)){
+        if(f.isLoggedIn(req, res)){
             res.redirect('/todo');
         } else {
             res.render('registration.html', {
-//                css_path: "/styles/styles.css",
                 title: "Home page"
             });
         }
     });
 
+    // To-do page
     router.get('/todo', function(req, res){
-        require('./controllers/todo.js').get(req, res);
+        if(!f.isLoggedIn(req, res)){
+            res.redirect('/');
+        } else {
+            res.render('todo.html', {
+                username: req.session.user,
+                title: "Todo page"
+            });
+        }
     });
 
+    /****************************** AJAX front-end Requests **********/
+    // Login
     router.post('/login', function(req, res){
-        require('./controllers/login.js').post(req, res, app, express, db);
+        if(req.body.pass == ''){ res.end('{"type" : "login_response", "msg" : "Empty password", "returnID" : "0"}'); }
+        db.updateUser(req, res, req.body.user, req.body.pass);
     });
+
+    // Logout
+    router.post('/logout', function(req, res){
+        require('./controllers/logout.js').post(req, res);
+    });
+
+
+
 
     router.post('/add_todo', function(req, res){
         require('./controllers/add_todo.js').post(req, res, db);
-    });
-
-    router.post('/logout', function(req, res){
-        require('./controllers/logout.js').post(req, res);
     });
 
     router.post('/get_todo', function(req, res){
