@@ -1,7 +1,5 @@
 // TODO: move all methods to Schema
-
-var configDB        = require('../config/database.js');
-var mongoose        = require('mongoose');
+var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/todo_nodejs');
 var db = mongoose.connection;
@@ -15,10 +13,6 @@ var UserSchema = mongoose.Schema({
     timeStampExpire: String
 });
 
-//var SessionSchema = mongoose.Schema({
-//    sessionID: String,
-//    userID: String
-//});
 
 var TodoSchema = mongoose.Schema({
     id:     String,
@@ -48,11 +42,9 @@ exports.updateUser = function(req, res, user, pass){
                     req.session.loggedin = 1;
                     req.session.user = user;
                     res.end('{"type" : "login_response", "msg" : "Authentication passed", "returnID" : "1"}');
-//                    return 1;
                 } else {    // Error pass
                     console.log('Wrong pass, return 0');
                     res.end('{"type" : "login_response", "msg" : "Wrong username or password", "returnID" : "0"}');
-//                    return 0;
                 }
             });
 
@@ -114,9 +106,10 @@ exports.removeTodo = function(req, res){
 
 exports.updateTodo = function(req, res){
     TodoModel.findOneAndUpdate({'_id': req.body.todo_id}, {'text': req.body.text}, function(err, numberAffected, raw){
-        console.log('>>> err:', err);
-        console.log('>>> numberAffected:', numberAffected);
-        console.log('>>> raw:', raw);
-        res.end('{"type" : "update_todo_response", "msg" : "", "returnID" : ""}');
+        if(err){
+            console.log('>>> err:', err);
+            res.end('{"type" : "update_todo_response", "msg" : "Something wrong", "returnID" : "0"}');
+        }
+        res.end('{"type" : "update_todo_response", "msg" : "One todo updated", "returnID" : "1"}');
     });
 }
