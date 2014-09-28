@@ -78,9 +78,6 @@ module.exports = function(app,  router, express, db){
             text: "Обана, 404 на!"
         });
     });
-
-    /** Add router to the application */
-    app.use('/', router);   // app.use('/parent', router); - call all from localhost:8888/parent/*
 }
 
 

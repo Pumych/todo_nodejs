@@ -1,3 +1,5 @@
+// TODO: move all methods to Schema
+
 var configDB        = require('../config/database.js');
 var mongoose        = require('mongoose');
 

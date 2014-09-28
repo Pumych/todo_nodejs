@@ -24,6 +24,7 @@ app.use(cookieParser());        // read cookies (needed for auth)
 app.use(bodyParser());          // get information from html forms
 app.use(session({ secret: 'yahomthfka' }));     // session secret
 app.use(express.static(__dirname + '/public')); // Static (public) folder
+app.use('/', router);           // app.use('/parent', router); - call all from localhost:8888/parent/*
 
 app.engine('html', swig.renderFile);
 
@@ -33,6 +34,5 @@ app.set('views', __dirname + '/views');
 require('./routes.js')(app,  router, express, db); // load our routes and pass in our app and fully configured passport
 
 app.listen(port);
-
 console.log( 'Run on port ' + port);
 
