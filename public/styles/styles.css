@@ -1,7 +1,10 @@
 #page_404 div{
-    width: 600px;
-    height: 400px;
+    width: 500px;
+    height: 375px;
     background: url('../images/404.jpg') no-repeat;
+    margin: auto;
+    margin-top: 10em;
+    text-align: center;
 }
 
 form.registration{

@@ -1,3 +1,9 @@
+/**
+ * TODO:
+ * 1. Add "v" for todos: text-decoration: line-through; for CSS on div
+ * 2. Update to-do view, replace text area with div ($('.editable').each(function(){this.contentEditable = true;});)
+ */
+
 $(document).ready(function(){
 
     if($('.todo_wrap').length > 0){

@@ -15,6 +15,7 @@ var cookieParser    = require('cookie-parser');
 var bodyParser      = require('body-parser');   // get information from html forms
 var session         = require('express-session');
 var router          = express.Router();
+var swig            = require('swig');
 
 var mongoose        = require('mongoose');
 var db              = require('./models/db.js');
@@ -24,8 +25,12 @@ app.use(morgan('dev'));     // log every request to the console
 app.use(cookieParser());    // read cookies (needed for auth)
 app.use(bodyParser());      // get information from html forms
 app.use(session({ secret: 'yahomthfka' })); // session secret
+app.use(express.static(__dirname + '/public')); /** Route static (public) folder */
 
-app.set('view engine', 'swig'); // set up swig for templating
+app.engine('html', swig.renderFile);
+
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
 
 require('./routes.js')(app,  router, express, db); // load our routes and pass in our app and fully configured passport
 
