@@ -16,13 +16,14 @@ $(document).ready(function(){
     });
 
     // Updates to-do on blur
-    $( document ).on("blur", '.todo_list textarea',function(){
-        var dataId = $(this).parent().parent().attr('data-id');
+    $( document ).on("blur", '.todo_list .text',function(){
+        var dataId = $(this).parent().attr('data-id');
 
-        if($(this).val().length == 0){
+        if($(this).text().length == 0){
             removeTodo(dataId)
         } else {
-            updateTodo(dataId, $(this).val());
+            console.log( $(this).text() );
+            updateTodo(dataId, $(this).text());
         }
     });
 
@@ -93,6 +94,8 @@ $(document).ready(function(){
             }
         });
     });
+
+    whatTodo();
 });
 
 // Gets list of to-do from DB and updates the page view
@@ -105,8 +108,8 @@ function getTodo(){
             var todoHtml = '';
             for(var todo in res.todos){
                 todoHtml += '<li data-id="'+res.todos[todo]._id+'">';
-                todoHtml += '<span class="buttons"><span class="delete"></span></span>';
-                todoHtml += '<div class="text_wrap"><textarea class="text">'+res.todos[todo].text+'</textarea></div></li>';
+                todoHtml += '<span class="buttons"><span class="done"></span><span class="delete"></span></span>';
+                todoHtml += '<div class="text" contenteditable="true">'+res.todos[todo].text+'</div></li>';
             }
 
             if($('body .todo_wrap .todo_list').length == 0){
@@ -149,4 +152,35 @@ function updateTodo(dataId, dataTodo){
             }
         }
     });
+}
+
+//Sets to-do as done
+//function setDone(dataId, done){
+//    $.ajax({
+//        url: '/update_todo',
+//        type: 'POST',
+//        data: { todo_id: dataId, done: done },
+//        success: function( data ){
+//            var res = JSON.parse(data);
+//            console.log( res );
+//            if(res.returnID == "1"){
+//                getTodo();
+//            }
+//        }
+//    });
+//}
+
+// Prints on all pages what need to be done in application
+function whatTodo(){
+    var list ='';
+    var listArr = [
+        "Animated hover etc."
+    ];
+
+    list += '<ol class="whatTodo">';
+    for(var item in listArr){
+        list += '<li>' + listArr[item] + '</li>';
+    }
+    list += '</ol>';
+    $('body').append(list);
 }
