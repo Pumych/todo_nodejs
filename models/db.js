@@ -1,5 +1,6 @@
 // TODO: move all methods to Schema
-var mongoose = require('mongoose');
+var mongoose    = require('mongoose');
+var Sync        = require('sync');
 
 mongoose.connect('mongodb://localhost/todo_nodejs');
 var db = mongoose.connection;
@@ -17,7 +18,9 @@ var UserSchema = mongoose.Schema({
 var TodoSchema = mongoose.Schema({
     id:     String,
     user:   String,
-    text:   String
+    text:   String,
+    done:   Boolean
+
 });
 
 var TodoModel = mongoose.model('todo', TodoSchema);
@@ -70,7 +73,7 @@ exports.addTodo = function(req, res){
 
     if(req.body.text == ''){ res.end('{"type" : "add_todo_response", "msg" : "Empty text", "returnID" : "0"}'); }
 
-    var newTodo = new TodoModel({'user': req.session.user, 'text': req.body.text});
+    var newTodo = new TodoModel({'user': req.session.user, 'text': req.body.text, 'done': req.body.done});
 
     newTodo.save(function(err){
         if(err) {
@@ -105,11 +108,34 @@ exports.removeTodo = function(req, res){
 };
 
 exports.updateTodo = function(req, res){
-    TodoModel.findOneAndUpdate({'_id': req.body.todo_id}, {'text': req.body.text}, function(err, numberAffected, raw){
-        if(err){
-            console.log('>>> err:', err);
-            res.end('{"type" : "update_todo_response", "msg" : "Something wrong", "returnID" : "0"}');
-        }
-        res.end('{"type" : "update_todo_response", "msg" : "One todo updated", "returnID" : "1"}');
-    });
+    function update(req){
+        TodoModel.findOneAndUpdate({'_id': req.body.todo_id}, dataUpdate, function(err, numberAffected, raw){
+            if(err){
+                console.log('>>> err:', err);
+                res.end('{"type" : "update_todo_response", "msg" : "Something wrong", "returnID" : "0"}');
+            }
+            res.end('{"type" : "update_todo_response", "msg" : "One todo updated", "returnID" : "1"}');
+        });
+    }
+    var dataUpdate = {};
+    if(!!req.body.text){ dataUpdate.text = req.body.text; }
+
+
+    if(!!req.body.doneUpdate){
+        TodoModel.findOne({ '_id': req.body.todo_id }, function(err, data){
+            if(err){
+                console.log('>>> err:', err);
+            }
+            dataUpdate.done = !data.done;
+            console.log( '1' );
+            update(req);
+        });
+        return;
+    } // TRue means update current state true->false, false->true
+
+    console.log( 2 );
+
+
+    update(req);
+
 }

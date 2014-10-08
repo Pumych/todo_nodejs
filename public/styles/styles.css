@@ -129,6 +129,12 @@ form.todo .add-submit{
     border-bottom: 1px solid #eeeeee;
 }
 
+.todo_list .text.done_true{
+    text-decoration: line-through;
+}
+
+
+
 .whatTodo{
     position: fixed;
     top:5px;

@@ -6,13 +6,15 @@
 
 $(document).ready(function(){
 
+    // If on to-do page get todos
     if($('.todo_wrap').length > 0){
         getTodo();
     }
 
+    // Remove to-do on click "delete"
     $( document ).on( "click", ".todo_wrap .todo_list .delete", function() {
-        var dataId = $(this).parent().parent().attr('data-id');
-        removeTodo(dataId)
+        var data = { todo_id: $(this).parent().parent().attr('data-id')};
+        removeTodo(data)
     });
 
     // Updates to-do on blur
@@ -23,10 +25,16 @@ $(document).ready(function(){
             removeTodo(dataId)
         } else {
             console.log( $(this).text() );
-            updateTodo(dataId, $(this).text());
+            var data = {todo_id:dataId, text: $(this).text()}
+            updateTodo(data);
         }
     });
 
+    $( document).on('click', '.todo_list .done', function(){
+        var dataId = $(this).parent().parent().attr('data-id');
+        var data = {todo_id:dataId, doneUpdate: true}
+        updateTodo(data);
+    });
 
     // Login form submit
     $('form.registration .login-submit').click(function(e){
@@ -53,9 +61,9 @@ $(document).ready(function(){
     });
 
     // Autogrow textarea
-    if($('.todo_list textarea').length > 0){
-        $('.todo_list textarea').autogrow({onInitialize: true});
-    }
+//    if($('.todo_list textarea').length > 0){
+//        $('.todo_list textarea').autogrow({onInitialize: true});
+//    }
 
     // Add new to-do
     $('.todo .add-submit').click(function(e){
@@ -67,7 +75,7 @@ $(document).ready(function(){
         $.ajax({
             url: '/add_todo',
             type: "POST",
-            data: {text: text},
+            data: {text: text, done: false},
             beforeSend: function(xhr){},
             success: function( data ){
                 var res = JSON.parse(data);
@@ -105,11 +113,12 @@ function getTodo(){
         type: "POST",
         success: function( data ){
             var res = JSON.parse(data);
+            console.log( data );
             var todoHtml = '';
             for(var todo in res.todos){
                 todoHtml += '<li data-id="'+res.todos[todo]._id+'">';
                 todoHtml += '<span class="buttons"><span class="done"></span><span class="delete"></span></span>';
-                todoHtml += '<div class="text" contenteditable="true">'+res.todos[todo].text+'</div></li>';
+                todoHtml += '<div class="text done_'+res.todos[todo].done +'" contenteditable="true">'+res.todos[todo].text+'</div></li>';
             }
 
             if($('body .todo_wrap .todo_list').length == 0){
@@ -121,17 +130,15 @@ function getTodo(){
 }
 
 // Removes to-do from DB and from page
-function removeTodo(dataId){
+function removeTodo(data){
     $.ajax({
         url: '/remove_todo',
         type: 'POST',
-        data: { todo_id: dataId },
+        data: data,
         success: function( data ){
-
             var res = JSON.parse(data);
             console.log( res );
             if(res.returnID == "1"){
-                $('li[data-id="'+dataId+'"]').remove();
                 getTodo();
             }
         }
@@ -139,11 +146,11 @@ function removeTodo(dataId){
 }
 
 // Updates the content of to-do
-function updateTodo(dataId, dataTodo){
+function updateTodo(data){
     $.ajax({
         url: '/update_todo',
         type: 'POST',
-        data: { todo_id: dataId, text: dataTodo },
+        data: data,
         success: function( data ){
             var res = JSON.parse(data);
             console.log( res );
@@ -174,7 +181,8 @@ function updateTodo(dataId, dataTodo){
 function whatTodo(){
     var list ='';
     var listArr = [
-        "Animated hover etc."
+        "Animated hover etc.",
+        "Stay logged in for 1 hour"
     ];
 
     list += '<ol class="whatTodo">';
