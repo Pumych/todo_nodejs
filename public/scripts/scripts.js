@@ -69,7 +69,7 @@ $(document).ready(function(){
     $('.todo .add-submit').click(function(e){
         e.preventDefault();
 
-        var text = $('form.todo textarea').val();
+        var text = $('form.todo input.insert-text').val();
         if(text.length == 0) return;
 
         $.ajax({
@@ -79,7 +79,7 @@ $(document).ready(function(){
             beforeSend: function(xhr){},
             success: function( data ){
                 var res = JSON.parse(data);
-                $('form.todo textarea').val('');
+                $('form.todo input.insert-text').val('');
                 getTodo();
             }
         });
@@ -117,12 +117,12 @@ function getTodo(){
             var todoHtml = '';
             for(var todo in res.todos){
                 todoHtml += '<li data-id="'+res.todos[todo]._id+'">';
-                todoHtml += '<span class="buttons"><span class="done"></span><span class="delete"></span></span>';
+                todoHtml += '<span class="buttons"><span class="done"></span><span class="delete"></span></span><input type="checkbox" />';
                 todoHtml += '<div class="text done_'+res.todos[todo].done +'" contenteditable="true">'+res.todos[todo].text+'</div></li>';
             }
 
             if($('body .todo_wrap .todo_list').length == 0){
-                $('body .todo_wrap').append('<ol class="todo_list"></ol>');
+                $('body .todo_wrap').append('<ul class="todo_list"></ul>');
             }
             $('body .todo_wrap .todo_list').html(todoHtml);
         }

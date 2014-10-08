@@ -53,10 +53,11 @@ form.todo{
     display: block;
 }
 
-form.todo textarea{
-    width: 300px;
+form.todo .insert-text{
     border-radius: 3px;
-    height: 70px;
+    width: 243px;
+    margin-right: 0px;
+    margin-left: 20px;
 }
 
 form.todo .add-submit{
@@ -66,13 +67,24 @@ form.todo .add-submit{
 .todo_list{
     display: inline-block;
     margin-left: -40px;
+    list-style: none;
 }
 
 .todo_list li{
-    padding-top: 20px;
     vertical-align:text-bottom;
     position: relative;
-    padding-bottom: 10px;
+    border-bottom: 1px solid #BAE3FF;
+    padding-left: 20px;
+}
+
+.todo_list li div.text,
+.todo_list li input[type="checkbox"]{
+    display: inline-block;
+}
+
+.todo_list li input[type="checkbox"]{
+    background: #fff;
+    border-radius:1px;
 }
 
 .todo_list .buttons{
@@ -121,16 +133,16 @@ form.todo .add-submit{
     text-align: left;
     border: 1px solid transparent;
     border-radius: 3px;
-    padding: 10px 5px 5px 5px;
+    padding: 3px 5px 3px 7px;
     resize: none;
     width: 300px;
     font: 11px/1em arial, sans-serif;
-    margin-top: -23px;
-    border-bottom: 1px solid #eeeeee;
+    margin: 3px;
 }
 
 .todo_list .text.done_true{
     text-decoration: line-through;
+    color: #c4c4c4;
 }
 
 
