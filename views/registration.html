@@ -1,26 +1,28 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <script src="scripts/jquery-2.1.1.js"></script>
     <script src="scripts/scripts.js"></script>
 </head>
 <body>
-<form class="registration">
-    <p>
-        <input type="text" name="email" placeholder="Email"/>
-    </p>
-    <p>
-        <input type="password" name="pass" placeholder="Password"/>
-    </p>
+<div class="loginWrap">
+    <div class="ribbon"></div>
+    <form class="registration">
+        <p class="emailWrap">
+            <input type="text" name="email" placeholder="Email"/>
+        </p>
+        <p class="passWrap">
+            <input type="password" name="pass" placeholder="Password"/>
+        </p>
         <div class="errMessage"></div>
-    <p>
-        <input type="submit" value="Register/Login" class="login-submit"/>
-    </p>
-</form>
+        <p>
+            <input type="submit" value="Register/Login" class="login-submit"/>
+        </p>
+    </form>
+</div>
 </body>
 </html>
-
-

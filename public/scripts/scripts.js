@@ -67,10 +67,10 @@
                             todoHtml += '<div class="text done_' + res.todos[todo].done + '" contenteditable="true">'+res.todos[todo].text+'</div></li>';
                         }
 
-                        if($('body .todo_wrap .todo_list').length == 0){
-                            $('body .todo_wrap').append('<ul class="todo_list"></ul>');
+                        if($('body .todo_wrap .todoListWrap .todo_list').length == 0){
+                            $('body .todo_wrap .todoListWrap').append('<ul class="todo_list"></ul>');
                         }
-                        $('body .todo_wrap .todo_list').html(todoHtml);
+                        $('body .todo_wrap .todoListWrap .todo_list').html(todoHtml);
                     }
                 });
             }, // getTodo()

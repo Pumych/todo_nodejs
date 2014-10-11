@@ -8,11 +8,11 @@
     <script src="scripts/autogrow.js"></script>
     <script src="scripts/scripts.js"></script>
 </head>
-<body>
-
+<body id="todo_page">
+<div class="ribbon"></div>
 <div class="todo_wrap">
-    <div class="username">User: {{username}}</div>
-    <input type="submit" value="Exit" class="logout"/>
+    <div class="username">User: <span>{{username}}</span><input type="submit" value="Exit" class="logout"/></div>
+    <div class="todoListWrap"></div>
     <form class="todo">
         <p>
             <input class="insert-text" type="text" placeholder="New todo..." />

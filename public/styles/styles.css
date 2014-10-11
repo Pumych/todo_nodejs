@@ -1,3 +1,9 @@
+/* http://cssdeck.com/labs/login-form-3 */
+
+body{
+    background: #4E535B;
+}
+
 #page_404 div{
     width: 500px;
     height: 375px;
@@ -7,61 +13,217 @@
     text-align: center;
 }
 
+.loginWrap{
+    text-align: center;
+    padding-top: 10%;
+}
+
+.todo_wrap,
 form.registration{
     border: 1px solid #ccc;
-    border-radius: 3px;
-    display: inline-block;
-    padding: 0px 2em;
-    text-align: center;
-    background: #f6f6f6;
     margin: 0 auto;
     position: relative;
-    left: 50%;
-    margin-left: -130px;
-    margin-top: 15%;
+    /*left: 50%;*/
+    /*margin-left: -130px;*/
+    background: #F1F2F4;
+    border-bottom: 2px solid #C5C5C8;
+    border-radius: 5px;
+    text-align: center;
+    color: #36383C;
+    text-shadow: 0 1px 0 #FFF;
+    max-width: 300px;
+    padding: 15px 40px 20px 40px;
+    box-shadow: 0 0 3px #000;
+}
+
+.todo_wrap{
+    max-width: 380px;
+    text-align: center;
+    margin-top: 5%;
+}
+
+form.registration{
+    display: inline-block;
+}
+
+.todo_wrap:before,
+form.registration:before {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #4E535B;
+    border-radius: 5px;
+    border-bottom: 1px solid #FFFFFF;
+    border-top: 2px solid #CBCBCD;
+    margin: 0 auto;
+
+}
+
+
+.ribbon {
+    background: rgba(200,200,200,.5);
+    width: 50px;
+    height: 70px;
+    margin: 0 auto;
+    position: relative;
+    top: 19px;
+    border: 1px solid rgba(255,255,255,.3);
+    border-top: 2px solid rgba(255,255,255,.5);
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 3px rgba(0,0,0,.7);
+    z-index:10;
+}
+.ribbon:before {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: #4E535B;
+    border: 4px solid #cfd0d1;
+    margin: 18px auto;
+    box-shadow: inset 0 0 5px #000, 0 0 2px #000, 0 1px 1px 1px #A7A8AB;
+    border-radius: 100%;
+}
+
+#todo_page .ribbon{
+    top: 101px;
 }
 
 form.registration p{
     margin: 0px;
 }
 
-form.registration input[name="email"]{
-    margin: 10px 0px;
+form.registration input[name="email"],
+form.registration input[name="pass"]{
+    padding-left: 40px;
+    margin: 0px;
+    width: 260px;
+    background: #E5E7E9;
+    border: 0;
+    line-height: 3.6em;
+    box-sizing: border-box;
+    color: #71747A;
+    font-family: 'Helvetica Neue';
+    text-shadow: 0 1px 0 #FFF;
 }
 
+form.registration input[name="email"]{
+    border: 1px solid #BDBFC2;
+    border-bottom: 1px solid #BDBFC2;
+    margin-top: 50px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+form.registration .passWrap,
+form.registration .emailWrap{
+    position: relative;
+}
+
+form.registration .emailWrap:before,
+form.registration .passWrap:before{
+    font-family: FontAwesome;
+    width: 10px;
+    height: 10px;
+    color: #B1B3B7;
+    position: absolute;
+}
+
+form.registration .emailWrap:before{
+    content: "\f0e0";
+    top: 70px;
+    left: 14px;
+}
+
+form.registration .passWrap:before{
+    font-family: FontAwesome;
+    content: "\f09c";
+    top: 18px;
+    left: 16px;
+}
+
+form.registration input[name="pass"]{
+    border: 1px solid #BDBFC2;
+    border-top: 1px solid #F1F2F4;
+    border-radius: 0px 0px 4px 4px;
+}
+
+input[type="submit"],
 form.registration .login-submit{
     cursor: pointer;
     margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    line-height: 2em;
+    background: rgba(114,212,202,1);
+    border-radius: 5px;
+    border: 0;
+    border-top: 1px solid #B2ECE6;
+    box-shadow: 0 0 0 1px #46A294, 0 2px 2px #808389;
+    color: #FFFFFF;
+    font-size: 1.5em;
+    text-shadow: 0 1px 2px #21756A;
 }
+
+input[type="submit"]:active,
+form.registration .login-submit:active {
+    box-shadow: inset 0 0 5px #000;
+    background: linear-gradient(to bottom, #39AF9A 0%,#6BC6BA 100%);
+}
+
+input[type="submit"]:hover,
+form.registration .login-submit:hover {
+    background: linear-gradient(to bottom, rgba(107,198,186,1) 0%,rgba(57,175,154,1) 100%);
+}
+
+input[type="submit"].add-submit,
+input[type="submit"].logout{
+    cursor: pointer;
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    display: block;
+    width: 5em;
+    font-size: 0.5em;
+    line-height: 1.5em;
+}
+
+input[type="submit"].add-submit{
+    top: 0em;
+    right: 10px;
+}
+
 form.registration .errMessage{
     color: red;
     display: block;
     height: 20px;
 }
 
-
-.todo_wrap{
-    text-align: center;
-    margin-top: 5%;
+.todo_wrap .username{
+    text-align: left;
+    padding-left: 20px;
+    margin-top: 30px;
+    font-size: 1.5em;
+    color: #71747A;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #aaa;
 }
 
-.todo_wrap .logout{
-    cursor: pointer;
+.todo_wrap .username span{
+    font-style: italic;
 }
 
 form.todo{
     display: block;
+    position: relative;
 }
 
 form.todo .insert-text{
     border-radius: 3px;
     width: 243px;
-    margin-right: 0px;
-    margin-left: 20px;
-}
-
-form.todo .add-submit{
-    cursor: pointer;
+    margin-top: 5px;
+    margin-left: -80px;
 }
 
 .todo_list{
@@ -86,6 +248,8 @@ form.todo .add-submit{
     background: #fff;
     border-radius:1px;
     cursor: pointer;
+    position: relative;
+    bottom: -3px;
 }
 
 input[type="checkbox"] {
@@ -170,7 +334,7 @@ input[type="checkbox"]:checked + label span {
     position: fixed;
     top:5px;
     left:10px;
-    border:1px solid green;
+    border:1px solid yellow;
     padding: 10px 10px 10px 30px;
-    color: green;
+    color: yellow;
 }
